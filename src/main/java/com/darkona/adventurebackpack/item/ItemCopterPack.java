@@ -154,11 +154,25 @@ public class ItemCopterPack extends ItemAdventure {
             }
 
             if (inv.getStatus() == HOVER_MODE) {
-                if (player.isSneaking()) {
-                    player.motionY = -0.3;
-                } else {
-                    fuelConsumption *= 2;
-                    player.motionY = 0.0f;
+                if(world.isRemote){
+                    if (!Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed() && player.isSneaking()) {
+                        player.motionY = -0.3;
+                    } else if (Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed()
+                            && player.isSneaking()) {
+                        player.motionY = 0;
+                    }
+                    else {
+                        fuelConsumption *= 2;
+                        player.motionY = 0.0f;
+                    }
+                }
+                else {
+                    if (player.isSneaking()) {
+                        player.motionY = -0.3;
+                    } else {
+                        fuelConsumption *= 2;
+                        player.motionY = 0.0f;
+                    }
                 }
             }
             player.fallDistance = 0;
@@ -173,18 +187,18 @@ public class ItemCopterPack extends ItemAdventure {
 
             float factor = 0.05f;
             if (!player.onGround) {
-                // Airwave
-                pushEntities(world, player, 0.2f);
+
                 // movement boost
                 player.moveFlying(player.moveStrafing, player.moveForward, factor);
             } else {
-                pushEntities(world, player, factor + 0.4f);
+
             }
 
             // Elevation clientside
             if (world.isRemote) {
                 if (Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed()) {
-                    if (inv.canConsumeFuel((int) Math.ceil(fuelConsumption * 2)) && canElevate) {
+                    if (inv.canConsumeFuel((int) Math.ceil(fuelConsumption * 2)) && canElevate &&
+                    !player.isSneaking()) {
                         elevate(player, stack);
                     }
                 }

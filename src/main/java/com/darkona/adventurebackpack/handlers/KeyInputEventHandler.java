@@ -79,6 +79,7 @@ public class KeyInputEventHandler {
                     ServerActions.toggleToolCycling(player, Wearing.getWearingBackpack(player));
                 }
             } else if (Wearing.isWearingCopter(player)) {
+                // TODO: split key out for turning on and off vs switching modes
                 if (player.isSneaking()) {
                     sendWearableModePacket(WearableModePacket.COPTER_ON_OFF);
                     ServerActions.toggleCopterPack(
