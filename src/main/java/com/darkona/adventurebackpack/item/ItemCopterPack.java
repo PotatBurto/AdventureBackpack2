@@ -154,19 +154,17 @@ public class ItemCopterPack extends ItemAdventure {
             }
 
             if (inv.getStatus() == HOVER_MODE) {
-                if(world.isRemote){
+                if (world.isRemote) {
                     if (!Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed() && player.isSneaking()) {
                         player.motionY = -0.3;
                     } else if (Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed()
                             && player.isSneaking()) {
-                        player.motionY = 0;
-                    }
-                    else {
-                        fuelConsumption *= 2;
-                        player.motionY = 0.0f;
-                    }
-                }
-                else {
+                                player.motionY = 0;
+                            } else {
+                                fuelConsumption *= 2;
+                                player.motionY = 0.0f;
+                            }
+                } else {
                     if (player.isSneaking()) {
                         player.motionY = -0.3;
                     } else {
@@ -197,8 +195,8 @@ public class ItemCopterPack extends ItemAdventure {
             // Elevation clientside
             if (world.isRemote) {
                 if (Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed()) {
-                    if (inv.canConsumeFuel((int) Math.ceil(fuelConsumption * 2)) && canElevate &&
-                    !player.isSneaking()) {
+                    if (inv.canConsumeFuel((int) Math.ceil(fuelConsumption * 2)) && canElevate
+                            && !player.isSneaking()) {
                         elevate(player, stack);
                     }
                 }

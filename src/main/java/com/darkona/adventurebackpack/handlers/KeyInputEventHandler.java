@@ -24,6 +24,7 @@ public class KeyInputEventHandler {
         UNKNOWN,
         INVENTORY,
         ACTION,
+        ACTIVATE,
         JUMP
     }
 
@@ -64,6 +65,8 @@ public class KeyInputEventHandler {
             }
         }
 
+
+
         if (pressedKey == Key.ACTION) {
             if (Wearing.isHoldingHose(player)) {
                 sendCycleToolPacket(CycleToolPacket.TOGGLE_HOSE_TANK);
@@ -79,20 +82,11 @@ public class KeyInputEventHandler {
                     ServerActions.toggleToolCycling(player, Wearing.getWearingBackpack(player));
                 }
             } else if (Wearing.isWearingCopter(player)) {
-                // TODO: split key out for turning on and off vs switching modes
-                if (player.isSneaking()) {
-                    sendWearableModePacket(WearableModePacket.COPTER_ON_OFF);
-                    ServerActions.toggleCopterPack(
-                            player,
-                            Wearing.getWearingCopter(player),
-                            WearableModePacket.COPTER_ON_OFF);
-                } else {
-                    sendWearableModePacket(WearableModePacket.COPTER_TOGGLE);
-                    ServerActions.toggleCopterPack(
-                            player,
-                            Wearing.getWearingCopter(player),
-                            WearableModePacket.COPTER_TOGGLE);
-                }
+                sendWearableModePacket(WearableModePacket.COPTER_TOGGLE);
+                ServerActions.toggleCopterPack(
+                        player,
+                        Wearing.getWearingCopter(player),
+                        WearableModePacket.COPTER_TOGGLE);
             } else if (Wearing.isWearingJetpack(player)) {
                 if (player.isSneaking()) {
                     sendWearableModePacket(WearableModePacket.JETPACK_ON_OFF);
@@ -101,6 +95,15 @@ public class KeyInputEventHandler {
             }
         }
 
+        if(pressedKey == Key.ACTIVATE){
+            if (Wearing.isWearingCopter(player)){
+                sendWearableModePacket(WearableModePacket.COPTER_ON_OFF);
+                ServerActions.toggleCopterPack(
+                        player,
+                        Wearing.getWearingCopter(player),
+                        WearableModePacket.COPTER_ON_OFF);
+            }
+        }
         if (pressedKey == Key.JUMP) {
             if (player.ridingEntity instanceof EntityFriendlySpider) {
                 sendPlayerActionPacket(PlayerActionPacket.SPIDER_JUMP);
@@ -115,6 +118,9 @@ public class KeyInputEventHandler {
         }
         if (Keybindings.toggleActions.isPressed()) {
             return Key.ACTION;
+        }
+        if (Keybindings.toggleActivate.isPressed()) {
+            return Key.ACTIVATE;
         }
         if (Minecraft.getMinecraft().gameSettings.keyBindJump.isPressed()) {
             return Key.JUMP;

@@ -54,6 +54,7 @@ itemGroup.adventurebackpack=Adventure Backpack Mod
 keys.adventureBackpack.category=Adventure Backpack
 keys.adventureBackpack.openInventory=Open Inventory
 keys.adventureBackpack.toggleActions=Toggle Actions
+keys.adventureBackpack.toggleActivate=Toggle Activation (Copter)
 
 ## Fluids
 fluid.melonJuice=Melon Juice
