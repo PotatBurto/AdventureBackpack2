@@ -276,8 +276,8 @@ public class ServerActions {
 
         if (type == WearableModePacket.COPTER_ON_OFF) {
             if (mode == ItemCopterPack.OFF_MODE) {
-                newMode = ItemCopterPack.NORMAL_MODE;
-                message = "adventurebackpack:messages.copterpack.normal";
+                newMode = ItemCopterPack.HOVER_MODE;
+                message = "adventurebackpack:messages.copterpack.hover";
                 actionPerformed = true;
                 if (!player.worldObj.isRemote) {
                     ModNetwork.sendToNearby(

@@ -65,8 +65,6 @@ public class KeyInputEventHandler {
             }
         }
 
-
-
         if (pressedKey == Key.ACTION) {
             if (Wearing.isHoldingHose(player)) {
                 sendCycleToolPacket(CycleToolPacket.TOGGLE_HOSE_TANK);
@@ -83,10 +81,8 @@ public class KeyInputEventHandler {
                 }
             } else if (Wearing.isWearingCopter(player)) {
                 sendWearableModePacket(WearableModePacket.COPTER_TOGGLE);
-                ServerActions.toggleCopterPack(
-                        player,
-                        Wearing.getWearingCopter(player),
-                        WearableModePacket.COPTER_TOGGLE);
+                ServerActions
+                        .toggleCopterPack(player, Wearing.getWearingCopter(player), WearableModePacket.COPTER_TOGGLE);
             } else if (Wearing.isWearingJetpack(player)) {
                 if (player.isSneaking()) {
                     sendWearableModePacket(WearableModePacket.JETPACK_ON_OFF);
@@ -95,13 +91,11 @@ public class KeyInputEventHandler {
             }
         }
 
-        if(pressedKey == Key.ACTIVATE){
-            if (Wearing.isWearingCopter(player)){
+        if (pressedKey == Key.ACTIVATE) {
+            if (Wearing.isWearingCopter(player)) {
                 sendWearableModePacket(WearableModePacket.COPTER_ON_OFF);
-                ServerActions.toggleCopterPack(
-                        player,
-                        Wearing.getWearingCopter(player),
-                        WearableModePacket.COPTER_ON_OFF);
+                ServerActions
+                        .toggleCopterPack(player, Wearing.getWearingCopter(player), WearableModePacket.COPTER_ON_OFF);
             }
         }
         if (pressedKey == Key.JUMP) {
